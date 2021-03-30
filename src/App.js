@@ -34,6 +34,16 @@ class App extends React.Component {
     this.setState({ list: updatedlist });
   }
 
+  checkedItem(e, id){
+    this.setState( () => {
+      const found = [...this.state.list].find(element => element.id === id);
+        
+        found.isDone = e;
+        return { found }
+    })
+  }
+
+
   updateInput(input) {
     this.setState({ newItem: input });
   }
@@ -68,9 +78,9 @@ class App extends React.Component {
                   <li key={item.id}>
                     <input
                       type="checkbox"
-                      name="idDone"
+                      name="isDone"
                       checked={item.isDone}
-                      onChange={() => {}}
+                      onChange={e => this.checkedItem(e.target.checked,item.id)}
                     />
                     {item.value}
                     <button
